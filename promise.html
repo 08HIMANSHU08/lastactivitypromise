@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+<body>
+</body>
+    <script>
+        
+        let posts=[{title: 'Post One', body: 'This is Post One',lastactivity:"13 April 2023"},{title: 'Post Two', body: 'This is Post Two',lastactivity:"13 May 2023"}]
+
+        function createPost(post) {
+            return new Promise( (resolve, reject) => {
+                setTimeout( () => {
+                    posts.push(post);
+                    resolve(posts);
+                }, 1000)
+            }) 
+        }
+        function updateLastUserActivityTime(post) {
+            return new Promise( (resolve, reject) => {
+                setTimeout( () => {
+                    post.lastactivity=new Date().getTime();
+                    resolve(post.lastactivity);
+                }, 1000)
+            }) 
+        }
+
+        function deletePost(){  
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    posts.pop();
+                    resolve();
+                },1000)
+            })
+        }
+        
+        const post3 = {title: 'Post Three', body: 'This is Post Three'};
+        
+        Promise.all([createPost(post3),updateLastUserActivityTime(post3)]).then((value)=>{
+            console.log(value);
+            console.log("user last activity time ",post3.lastactivity);
+            });
+        
+        // Promise.all([deletePost(),updateLastUserActivityTime(posts)]).then(()=>{
+        //     console.log("after deteting post user last activity time ",post3.lastactivity);
+        //     console.log(posts);
+        //     });
+
+</script>
+</html>
